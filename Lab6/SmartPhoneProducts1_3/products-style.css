@@ -1,0 +1,45 @@
+/* General */
+body {
+    width: 800px;
+    margin: 0 auto;
+}
+/* Typography */   
+h1,h2 {
+    text-align: center;
+
+}
+/* block styling */
+body > div {
+    border: 5px solid black;
+    display: flex;
+}
+/* Form styling */
+main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    color: black;
+    background-image: url("Images/Picture1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}    
+/* Styling the products display */
+.item img {
+    width: 200px;
+    height: 200px;
+}
+/* Rotating imgs */
+.rotate img
+{
+  animation: rotation .3s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
