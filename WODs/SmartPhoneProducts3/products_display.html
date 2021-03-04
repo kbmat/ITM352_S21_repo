@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta brand="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphone Products</title>
+    <link rel="stylesheet" href="products-style.css">
+    <script>
+    var product1 = {
+      brand : "HTC",
+      price : 40.00,
+      image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg",
+    }
+    var product2 = {
+      brand : "Apple",
+      price : 75.00,
+      image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg",
+    }
+    var product3 = {
+      brand : "Nokia",
+      price : 35.00,
+      image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg",
+    }
+    var product4 = {
+      brand : "Samsung",
+      price : 45.00,
+      image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg",
+    }
+    var product5 = {
+      brand : "Blackberry",
+      price : 10.00,
+      image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg",
+    }
+    // Products array
+    products = [product1,product2,product3,product4,product5];
+    </script>
+</head>
+<body>
+    <h1>Kimberly's Used Smart Phone Store</h1>
+    <div><main> 
+    <script>
+        for (i = 0; i < products.length; i++) {
+        document.write(`
+        <section class="item"> 
+        <h2>${products[i].brand}</h2> 
+        <p>$${(products[i].price).toFixed(2)}</p>
+        <img src=${products[i].image}>
+    </section>
+        `);
+    }
+    </script>
+</main></div> 
+<footer><h1>Your One Stop Phone Shop</h1></footer>
+</body>
+</html>
