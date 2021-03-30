@@ -119,17 +119,16 @@
             document.write(`
         <section class="item"> 
         <!-- Load in product image -->
-        <div style="border-style: solid; border-width:2px; border-bottom-style:hidden;"><img src="./images/${products[i].image}"></div>
+        <img src="./images/${products[i].image}">
 
-        <div style="border-style: solid; border-width:2px;">
         <!-- Load in product name -->
         <h2>${products[i].product}</h2> 
 
-        <!-- Load in product caption/description -->
-        <h4><p>${(products[i].caption)}</p></h4>
-
         <!-- Load in product price -->
         <h4><p>$${(products[i].price).toFixed(2)}</p></h4>
+
+        <!-- Load in product caption/description -->
+        <h4><p>${(products[i].caption)}</p></h4>
 
         <p><label>Quantity</label>
         <div class="product-actions__quantity"> <!-- modified increase & decrease buttons from Mark Broomell https://codepen.io/mtbroomell/pen/yNwwdv -->
@@ -145,7 +144,6 @@
         </div>
         <div id="quantity${i}_label"> <!-- Allows computer to know which product actions apply to which products -->
         </div></p>
-        </div>
         </section>
         `);
           }
@@ -153,7 +151,7 @@
       </main>
     </div>
     <!-- Submit button to form-->
-    <input type="submit" value="Purchase!" name="submitPurchase" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" >
+    <input type="submit" value="Purchase!" name="submitPurchase">
   </form>
   <footer>
     <!-- Footer with skincare philosophy & estore-->

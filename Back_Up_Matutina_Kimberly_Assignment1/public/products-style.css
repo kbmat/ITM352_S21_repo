@@ -72,15 +72,14 @@ main {
 }    
 /* Styling the products display */
 .item img {
-    width: 300px;
+    width: 200px;
     height: auto;
 }
 
-/* Shadow when user hovers over item */
-.item:hover {
-  box-shadow: 0 0 5px 1px black;
+/* Styling the item */
+.item {
+  border: 2px;
 }
-
 
 /* Styling the form */
 form {
@@ -103,13 +102,3 @@ form {
     padding: 11px 0;
     background: #eee;
   }
-
-  /* Style the various products */
-  section {
-    width: 300%;
-    margin: 5px;
-    background-color: white;
-    height: auto;
-  }
-
-  
