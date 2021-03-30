@@ -1,0 +1,40 @@
+<script>
+    function checkQuantityTextBox(qtyTextboxObj) { // Ex. 1b & 1c //
+        var errs = isNonNegInt(qtyTextboxObj.value, true); // Ex. 1c //
+        qty_textbox_message.innerHTML = errs.join(","); // Ex. 1c //
+    }
+    function isNonNegInt(q, returnErrors = false) { // Ex. 1c //
+        if (q == '') q = 0; // Ex. 1d, if the value of the text box is “blank” or ‘’, set to value to 0 //
+        var errors = []; // Assume no errors at first
+        if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
+        if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
+        if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
+
+        return returnErrors ? errors : (errors.length == 0);
+    }
+    function displayPurchase() { // Ex. 2a //
+        if (isNonNegInt(quantity_textbox.value) ) { // Ex. 2b
+            document.body.innerHTML = `Thank for you for ordering ${quantity_textbox.value} things!`;
+        }
+    }
+
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label>quantity desired:</label> <!-- Ex. 1a -->
+    <input id="quantity_textbox" type="text" onkeyup="checkQuantityTextBox();"> <!-- Ex. 1b-->
+    <span id='qty_textbox_message'>Enter a quantity</span> <!-- Ex. 1a -->
+    <br>
+    <input type="button" onclick="displayPurchase()" value="Purchase"> <!-- Ex. 2a -->
+</body>
+
+</html>
