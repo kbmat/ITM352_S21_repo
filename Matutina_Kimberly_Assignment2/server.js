@@ -145,8 +145,6 @@ app.post('/process_register', function (request, response, next) {
         console.log(errors)
         request.query.fullname = request.body.fullname;
         request.query.username = request.body.username;
-        request.query.password = request.body.password;
-        request.query.repeat_password = request.body.repeat_password;
         request.query.email = request.body.email;
         // Add errors to query string
         request.query.errors = errors.join(';');
