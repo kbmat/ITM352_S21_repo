@@ -7,30 +7,20 @@
   // Followed Professor Port's Screencast
 
   // Function taken and modified from Professor Port's Assignment 3 Code Examples
-  function loadJSON(service, callback) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('POST', service, false);
-    xobj.onreadystatechange = function () {
-      if (xobj.readyState == 4 && xobj.status == "200") {
-        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-        callback(xobj.responseText);
-      }
-    };
-    xobj.send(null);
-  }
+
 
   // Load product data
-  var products_data;
-  loadJSON('get_products_data', function (response) {
-    // Parsing JSON string into object
-    allproducts = JSON.parse(response);
-  });
+ 
 </script>
 <script src="./navbar.js" type="text/javascript">
   // This links it to my navbar.js
 </script>
 <script>
+   var products_data;
+  loadJSON('get_products_data', function (response) {
+    // Parsing JSON string into object
+    allproducts = JSON.parse(response);
+  });
   // Got help from Professor Port & Lab 12 for the following code // 
   let params = (new URL(document.location)).searchParams; // Get data from form to create invoice
   var this_product_key = params.get("product_key");

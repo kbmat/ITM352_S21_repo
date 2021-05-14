@@ -163,6 +163,15 @@ app.post('/process_register', function (request, response, next) {
 });
 // ------ End Process registration form ----- //
 
+// ------ Get cart qty ----- //
+app.post('/cart_qty', function (request, response) {
+    console.log(request.session.cart);
+    var total = 0;
+    for (pkey in request.session.cart) {
+        total += request.session.cart[pkey].reduce((a, b) => a + b, 0);
+    }
+    response.json({"qty": total});
+});
 
 
 // ------ Process order from products_display ----- //
@@ -178,7 +187,7 @@ app.post('/add_to_cart', function (request, response) {
         if (typeof request.session.cart[ptype] == "undefined") {
             request.session.cart[ptype] = [];
         }
-        request.session.cart[ptype][pindex] = qty;
+        request.session.cart[ptype][pindex] = parseInt(qty);
         console.log(request.session);
         response.json({ "status": "Successfully Added to Cart" });
     } else {
@@ -220,7 +229,9 @@ app.post("/update_cart", function (request,response) {
 
 // ------ User Logout ----- //
 app.get("/logout" , function (request, response) {
-    logout_msg = `<script>alert('${user_data[username].name} has successfully logged out!'); location.href="./index.html";</script>`;
+    var user_info = JSON.parse(request.cookies["user_info"]);
+    var username = user_info["username"];
+    logout_msg = `<script>alert('${user_info.name} has successfully logged out!'); location.href="./index.html";</script>`;
     response.clearCookie('user_info');
     response.send(logout_msg);
 });
@@ -229,8 +240,8 @@ app.get("/logout" , function (request, response) {
 // ------ Complete purchase -> email invoice ----- //
 app.post('/completePurchase', function (request, response) {
     var invoice = request.body;
-    var user_info = request.cookies["user_info"];
-    email = user_info["email"];
+    var user_info = JSON.parse(request.cookies["user_info"]);
+    var the_email = user_info["email"];
     var transporter = nodemailer.createTransport({
         host: "mail.hawaii.edu",
         port: 25,
@@ -242,15 +253,16 @@ app.post('/completePurchase', function (request, response) {
     });
     var mailOptions = {
         from: 'kimkb@krave.com',
-        to: email,
+        to: the_email,
         subject: 'Your Krave Beauty Invoice',
         html: invoice.invoicehtml
     };
     transporter.sendMail(mailOptions, function (error, info) {
+        console.log(error);
         if (error) {
             status_str = 'There was an error and your invoice could not be emailed :(';
         } else {
-            status_str = `Your invoice was mailed to ${user_data[username][email]}`;
+            status_str = `Your invoice was mailed to ${the_email}`;
         }
         response.json({ "status": status_str });
     });
