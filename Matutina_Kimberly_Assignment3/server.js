@@ -33,7 +33,6 @@ app.all('*', function (request, response, next) {
     if (typeof request.session.cart == "undefined") {
         request.session.cart = {}; // initialize cart
     }
-    console.log(request.method, request.path);
     next();
 });
 
@@ -47,13 +46,11 @@ app.post("/get_products_data", function (request, response, next) {
 // Followed Professor Port's Screencast + Borrowed and modified code from Alyssa Mencel assignment 2 code https://github.com/amencel/ITM352_F20_repo/tree/master/mencel_alyssa_assignment2
 // Got help from Professor Port during office hours
 app.post('/process_login', function (request, response, next) {
-    console.log(request.query);
     delete request.query.username_error; // Deletes error from query after fixed
     delete request.query.password_error; // Deletes error from query after fixed
     username = request.body.username.toLowerCase(); // Username as all lower case
     if (typeof user_data[username] != 'undefined') { // Check if username entered exists in user data
         if (user_data[username].password == request.body.psw) { // Check if password entered matches password in user data
-            console.log(user_data[username].name);
             request.query.name = user_data[username].name;
             request.query.email = user_data[username].email;
             response_string = `<script>
@@ -80,7 +77,6 @@ app.post('/process_login', function (request, response, next) {
 
 // ------ Process Registration form ----- //
 app.post('/process_register', function (request, response, next) {
-    console.log(request.body);
     var errors = [];
 
     // -------------- Full name validation -------------- //
@@ -132,7 +128,6 @@ app.post('/process_register', function (request, response, next) {
     // If there are no errors, save info to user data
     if (errors.length == 0) {
         POST = request.body
-        console.log('No errors found')
         var username = POST['username']
         user_data[username] = {}; // Register it as user's information
         user_data[username].name = request.body.fullname; // POST user's name
@@ -152,7 +147,6 @@ app.post('/process_register', function (request, response, next) {
     }
     // If there are errors redirect to registration page & keep info in query string
     if (errors.length > 0) {
-        console.log(errors)
         request.query.fullname = request.body.fullname;
         request.query.username = request.body.username;
         request.query.email = request.body.email;
@@ -165,20 +159,18 @@ app.post('/process_register', function (request, response, next) {
 
 // ------ Get cart qty ----- //
 app.post('/cart_qty', function (request, response) {
-    console.log(request.session.cart);
     var total = 0;
     for (pkey in request.session.cart) {
         total += request.session.cart[pkey].reduce((a, b) => a + b, 0);
     }
     response.json({"qty": total});
 });
-
+// ------ Get cart qty ----- //
 
 // ------ Process order from products_display ----- //
 // Got help from Professor Port during office hours
 app.post('/add_to_cart', function (request, response) {
     let POST = request.body; // create variable for the data entered into products_display
-    console.log(POST);
     var qty = POST["prod_qty"];
     var ptype = POST["prod_type"];
     var pindex = POST["prod_index"];
@@ -188,7 +180,6 @@ app.post('/add_to_cart', function (request, response) {
             request.session.cart[ptype] = [];
         }
         request.session.cart[ptype][pindex] = parseInt(qty);
-        console.log(request.session);
         response.json({ "status": "Successfully Added to Cart" });
     } else {
         response.json({ "status": "Invalid quantity, Not added to cart" });
@@ -198,14 +189,12 @@ app.post('/add_to_cart', function (request, response) {
 
 // ------ Get info from session (shopping cart data) ----- //
 app.post('/get_cart', function (request, response) {
-    console.log(request.session.cart);
     response.json(request.session.cart);
 });
 // ------ Get info from session (shopping cart data) ----- //
 
 // ------ Update session info/shopping cart with new quantities ----- //
 app.post("/update_cart", function (request,response) {
-    console.log(request.body, request.session.cart);
     // replace cart in session with post
     // check if updated quantities are valid
     let haserrors = false;
@@ -258,7 +247,6 @@ app.post('/completePurchase', function (request, response) {
         html: invoice.invoicehtml
     };
     transporter.sendMail(mailOptions, function (error, info) {
-        console.log(error);
         if (error) {
             status_str = 'There was an error and your invoice could not be emailed :(';
         } else {
